@@ -1,0 +1,75 @@
+psql --username=freecodecamp --dbname=postgres
+psql --username=freecodecamp --dbname=students
+
+list all databases
+	\l
+
+connect to database
+	\c <database_name>
+	
+dispaly all tables
+	\d
+	\d <table_name>
+
+create table
+		create table tablename();
+		create table sounds(sound_id SERIAL PRIMARY KEY);
+		
+Rename column name
+	ALTER TABLE second_table RENAME COLUMN name  to username;
+	ALTER TABLE table_name ADD PRIMARY KEY(column_name);
+	ALTER TABLE sounds ADD COLUMN filename varchar(40) NOT NULL UNIQUE;
+	
+
+insert into characters (name,homeland,favorite_color) values 
+( 'Daisy','Sarasaland', 'Yellow'),
+( 'Yoshi','Dinosaur Land', 'Green');
+	
+
+SELECT columns FROM many_to_many_table
+FULL JOIN table_1 ON many_to_many_table.foreign_key_column = table_1.primary_key_column
+FULL JOIN table_2 ON many_to_many_table.foreign_key_column = table_2.primary_key_column;
+
+	
+SELECT * FROM character_actions 
+FULL JOIN characters on character_actions.character_id = characters.character_id 
+FULL JOIN actions ON character_actions.action_id = actions.action_id;
+
+
+
+pg_dump -cC --inserts -U freecodecamp universe > universe.sql
+pg_dump -cC --inserts -U freecodecamp students > students.sql
+
+psql -U postgres < universe.sql
+
+
+select * from courses where course like '_lgorithms';
+ => underscore for one char before keyword
+ 
+select * from courses where course ilike '%A%';
+ => ilike to ignore char case A, a
+ 
+
+Aggregate function dosn't require group by
+ => students=> select MAX(gpa) from students;
+ 
+ 
+Round number to up nearst number using CEIL or to lowset nearset number using ROUND
+	select CEIL(AVG(major_id)) from students;
+	select ROUND(AVG(major_id)) from students;
+	
+Count function not calculate null values
+
+
+JOINs
+
+FULL JOIN gets all rows
+LEFT JOIN gets all rows from the left table, but
+RIGHT JOIN gets all rows from the right table, but
+
+INNER JOIN or JOIN  get matches only
+
+	 join students using(major_id);
+	  => using to ignore to right the tables and "on" keyword
+	  => detect match foriegn keys automatice
+	  => merge forigen key to 1 key to join with other tables
